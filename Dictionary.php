@@ -1,3 +1,5 @@
+<?php
+
 /**
  * @copyright Copyright &copy; Gogodigital Srls
  * @company Gogodigital Srls - Wide ICT Solutions
@@ -13,17 +15,18 @@ namespace cinghie\dictionary;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\base\Module;
+use yii\i18n\PhpMessageSource;
 
-class Articles extends Module
+class Dictionary extends Module
 {
     // Select Article Languages
-	  public $languages = [ 'en-GB' => 'en-GB' ];
+	public $languages = [ 'en-GB' => 'en-GB' ];
     
    /**
-	  * @inheritdoc
-	  *
-	  * @throws InvalidParamException
-	  */
+	* @inheritdoc
+    *
+    * @throws InvalidParamException
+    */
     public function init()
     {
         parent::init();
@@ -31,15 +34,15 @@ class Articles extends Module
     }
     
     /**
-	   * Translating module message
-	   */
-	  public function registerTranslations()
+     * Translating module message
+     */
+    public function registerTranslations()
     {
-		    if (!isset(Yii::$app->i18n->translations['dictionary*'])) {
-			      Yii::$app->i18n->translations['articles*'] = [
-				        'class' => PhpMessageSource::class,
-				        'basePath' => __DIR__ . '/messages',
-			      ];
-		    }
+		if (!isset(Yii::$app->i18n->translations['dictionary*'])) {
+			Yii::$app->i18n->translations['articles*'] = [
+				'class' => PhpMessageSource::class,
+				'basePath' => __DIR__ . '/messages',
+			];
+		}
     }
 }
