@@ -21,6 +21,9 @@ class Dictionary extends Module
 {
     // Select Article Languages
 	public $languages = [ 'en-GB' => 'en-GB' ];
+
+	// Show Titles in the views
+	public $showTitles = true;
     
    /**
 	* @inheritdoc

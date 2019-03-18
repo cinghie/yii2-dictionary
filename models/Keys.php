@@ -40,7 +40,8 @@ class Keys extends \yii\db\ActiveRecord
     {
         return [
             [['key'], 'required'],
-            [['key'], 'string', 'unique', 'max' => 255],
+            [['key'], 'unique'],
+            [['key'], 'string', 'max' => 255],
         ];
     }
 

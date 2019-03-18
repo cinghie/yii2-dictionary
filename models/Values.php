@@ -20,6 +20,7 @@ use yii\db\ActiveQuery;
  *
  * @property int $id
  * @property int $key_id
+ * @property string $value
  * @property string $lang
  * @property string $lang_tag
  *
@@ -42,9 +43,10 @@ class Values extends \yii\db\ActiveRecord
     {
         return [
             [['key_id'], 'integer'],
-            [['lang', 'lang_tag'], 'required'],
+            [['value','lang', 'lang_tag'], 'required'],
             [['lang'], 'string', 'max' => 3],
             [['lang_tag'], 'string', 'max' => 5],
+            [['value'], 'string', 'max' => 255],
             [['key_id'], 'exist', 'skipOnError' => true, 'targetClass' => Keys::class, 'targetAttribute' => ['key_id' => 'id']],
         ];
     }
@@ -57,6 +59,7 @@ class Values extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('traits', 'ID'),
             'key_id' => Yii::t('traits', 'Key'),
+            'value' => Yii::t('traits', 'Value'),
             'lang' => Yii::t('traits', 'Language'),
             'lang_tag' => Yii::t('traits', 'Language Tag'),
         ];
@@ -72,7 +75,7 @@ class Values extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
-     * 
+     *
      * @return ValuesQuery the active query used by this AR class.
      */
     public static function find()
