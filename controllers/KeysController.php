@@ -111,9 +111,6 @@ class KeysController extends Controller
 
         if ($model->load($post))
         {
-        	echo '<pre>'; var_dump($post); echo '</pre>';
-        	echo '<pre>'; var_dump($model->errors); echo '</pre>';
-
         	if($model->save()) {
 		        return $this->redirect(['view', 'id' => $model->id]);
 	        }
