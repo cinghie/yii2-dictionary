@@ -72,6 +72,7 @@ class Values extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
+     * 
      * @return ValuesQuery the active query used by this AR class.
      */
     public static function find()

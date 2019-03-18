@@ -13,6 +13,7 @@
 namespace cinghie\dictionary\models;
 
 use Yii;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "{{%dictionary_keys}}".
@@ -39,7 +40,7 @@ class Keys extends \yii\db\ActiveRecord
     {
         return [
             [['key'], 'required'],
-            [['key'], 'string', 'max' => 255],
+            [['key'], 'string', 'unique', 'max' => 255],
         ];
     }
 
@@ -49,13 +50,13 @@ class Keys extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('dictionary', 'ID'),
-            'key' => Yii::t('dictionary', 'Key'),
+            'id' => Yii::t('traits', 'ID'),
+            'key' => Yii::t('traits', 'Key'),
         ];
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getDictionaryValues()
     {
@@ -64,6 +65,7 @@ class Keys extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
+     *
      * @return KeysQuery the active query used by this AR class.
      */
     public static function find()
