@@ -40,8 +40,31 @@ use yii\widgets\ActiveForm;
 
         </div>
 
+        <?php foreach(Yii::$app->controller->module->languages as $langTag): ?>
+
+            <div class="col-md-4">
+
+                <?php
+
+                    $lang = substr($langTag,0,2);
+
+                    $valueName = 'value_'.$lang;
+
+                ?>
+
+                <div class="form-group field-keys-key">
+                    <label class="control-label" for="keys-key">
+                        <?= Yii::t('traits','Translation') ?> <?= $langTag ?>
+                    </label>
+	                <?= Html::textInput($valueName, $model->getFieldTranslation($lang,'title'), ['class' => 'form-control']) ?>
+                </div>
+
+            </div>
+
+        <?php endforeach ?>
+
     </div>
 
-    <?php ActiveForm::end(); ?>
+    <?php ActiveForm::end() ?>
 
 </div>
