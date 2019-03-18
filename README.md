@@ -1,2 +1,2 @@
 # Yii2 Dictionary
-Yii2 Simple Module to create Multilanguage Dictionary
+Yii2 Dictionary to create, manage, and delete Multilanguage Dictionary in a Yii2 site.
