@@ -2,11 +2,14 @@
 
 namespace cinghie\dictionary\controllers;
 
+use Throwable;
 use Yii;
 use cinghie\dictionary\models\Keys;
 use cinghie\dictionary\models\KeysSearch;
+use yii\db\StaleObjectException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
 /**
@@ -20,8 +23,18 @@ class KeysController extends Controller
     public function behaviors()
     {
         return [
+	        'access' => [
+		        'class' => AccessControl::class,
+		        'rules' => [
+			        [
+				        'allow' => true,
+				        'actions' => ['index','create','update','view','delete'],
+				        'roles' => $this->module->dictionaryRoles
+			        ],
+		        ]
+	        ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -60,15 +73,22 @@ class KeysController extends Controller
     /**
      * Creates a new Keys model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function actionCreate()
     {
         $model = new Keys();
+        $post  = Yii::$app->request->post();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+	    if ($model->load($post))
+	    {
+		    if ($model->save()) {
+		        return $this->redirect(['view', 'id' => $model->id]);
+	        }
+
+		    return $this->render('index');
+	    }
 
         return $this->render('create', [
             'model' => $model,
@@ -78,16 +98,27 @@ class KeysController extends Controller
     /**
      * Updates an existing Keys model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $post  = Yii::$app->request->post();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load($post))
+        {
+        	echo '<pre>'; var_dump($post); echo '</pre>';
+        	echo '<pre>'; var_dump($model->errors); echo '</pre>';
+
+        	if($model->save()) {
+		        return $this->redirect(['view', 'id' => $model->id]);
+	        }
+
+	        return $this->render('index');
         }
 
         return $this->render('update', [
@@ -95,13 +126,17 @@ class KeysController extends Controller
         ]);
     }
 
-    /**
-     * Deletes an existing Keys model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+	/**
+	 * Deletes an existing Keys model.
+	 * If deletion is successful, the browser will be redirected to the 'index' page.
+	 *
+	 * @param integer $id
+	 *
+	 * @return mixed
+	 * @throws NotFoundHttpException
+	 * @throws StaleObjectException
+	 * @throws Throwable
+	 */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -112,9 +147,11 @@ class KeysController extends Controller
     /**
      * Finds the Keys model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
+     *
      * @return Keys the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * @throws NotFoundHttpException
      */
     protected function findModel($id)
     {
@@ -122,6 +159,6 @@ class KeysController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('dictionary', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(Yii::t('traits', 'The requested page does not exist.'));
     }
 }

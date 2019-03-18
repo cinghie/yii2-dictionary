@@ -11,5 +11,7 @@
  */
 
 return [
-	'Dictionary' => 'Dizionario'
+	'Create Keys' => 'Crea Parola',
+	'Dictionary' => 'Dizionario',
+	'Update Keys' => 'Modifica Parola',
 ];

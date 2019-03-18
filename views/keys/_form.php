@@ -32,10 +32,14 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'key')->textInput(['maxlength' => true]) ?>
+    <div class="row">
 
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('dictionary', 'Save'), ['class' => 'btn btn-success']) ?>
+        <div class="col-md-4">
+
+	        <?= $form->field($model, 'key')->textInput(['maxlength' => true]) ?>
+
+        </div>
+
     </div>
 
     <?php ActiveForm::end(); ?>

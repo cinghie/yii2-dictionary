@@ -4,7 +4,7 @@
 /* @var $model cinghie\dictionary\models\Keys */
 
 $this->title = Yii::t('dictionary', 'Create Keys');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('dictionary', 'Keys'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('dictionary', 'Dictionary'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

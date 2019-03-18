@@ -22,6 +22,9 @@ class Dictionary extends Module
     // Select Article Languages
 	public $languages = [ 'en-GB' => 'en-GB' ];
 
+	// Admin Rules
+	public $dictionaryRoles = ['admin'];
+
 	// Show Titles in the views
 	public $showTitles = true;
     
@@ -42,7 +45,7 @@ class Dictionary extends Module
     public function registerTranslations()
     {
 		if (!isset(Yii::$app->i18n->translations['dictionary*'])) {
-			Yii::$app->i18n->translations['articles*'] = [
+			Yii::$app->i18n->translations['dictionary*'] = [
 				'class' => PhpMessageSource::class,
 				'basePath' => __DIR__ . '/messages',
 			];
