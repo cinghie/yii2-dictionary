@@ -18,13 +18,11 @@ or add
 "cinghie/yii2-dictionary": "*"
 ```
 
-Configuration
+Create database schema
 -----------------
 
-### Update yii2 dictionary database schema
-
-Make sure that you have properly configured `db` application component.  
 Run the following command:
+
 ```
 $ php yii migrate/up --migrationPath=@vendor/cinghie/yii2-dictionary/migrations
 ```
