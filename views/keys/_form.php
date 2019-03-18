@@ -8,6 +8,26 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+<div class="row">
+
+    <div class="col-md-6">
+
+
+
+    </div>
+
+    <div class="col-md-6">
+
+		<?= $model->getExitButton() ?>
+
+		<?= $model->getCancelButton() ?>
+
+		<?= $model->getSaveButton() ?>
+
+    </div>
+
+</div>
+
 <div class="keys-form">
 
     <?php $form = ActiveForm::begin(); ?>

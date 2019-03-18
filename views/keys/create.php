@@ -9,9 +9,8 @@ $this->title = Yii::t('dictionary', 'Create Keys');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('dictionary', 'Keys'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="keys-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="keys-create">
 
     <?= $this->render('_form', [
         'model' => $model,

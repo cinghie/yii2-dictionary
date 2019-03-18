@@ -13,6 +13,7 @@
 namespace cinghie\dictionary\models;
 
 use Yii;
+use cinghie\traits\ViewsHelpersTrait;
 use yii\db\ActiveQuery;
 
 /**
@@ -25,6 +26,8 @@ use yii\db\ActiveQuery;
  */
 class Keys extends \yii\db\ActiveRecord
 {
+	use ViewsHelpersTrait;
+
     /**
      * {@inheritdoc}
      */

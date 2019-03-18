@@ -14,6 +14,26 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 
+<div class="row">
+
+    <!-- action menu -->
+    <div class="col-md-6">
+
+
+
+    </div>
+
+    <!-- action buttons -->
+    <div class="col-md-6">
+
+		<?= $searchModel->getCreateButton() ?>
+
+    </div>
+
+</div>
+
+<div class="separator"></div>
+
 <div class="keys-index">
 
 	<?php if(Yii::$app->getModule('dictionary')->showTitles): ?>
