@@ -9,13 +9,9 @@ namespace cinghie\dictionary\models;
  */
 class ValuesQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
-
     /**
      * {@inheritdoc}
+     *
      * @return Values[]|array
      */
     public function all($db = null)
@@ -25,6 +21,7 @@ class ValuesQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
+     *
      * @return Values|array|null
      */
     public function one($db = null)

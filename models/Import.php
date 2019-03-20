@@ -66,30 +66,67 @@ class Import extends ActiveRecord
 
 		foreach ($csv as $item)
 		{
-			$key = $item['Key'];
+			$key = (string)$item['Key'];
+
+			echo 'Indice '.$index.'<br>';
 
 			if($key) {
 
-				foreach (Yii::$app->controller->module->languages as $langTag)
-				{
+				$newKeys  = new Keys();
+				$keyExist = $newKeys::find()->findByKey($key);
+
+				if(isset($keyExist)) {
+
+					echo 'Key: ('.$key.') esiste già!<br>';
+
+				} else {
+
+					$newKeys->key = $key;
+					$newKeys->save();
+					$newKeysID = $newKeys->id;
+
+					echo 'Key: ('.$key.') creata correttamente!<br>';
+
+					if($newKeysID)
+					{
+						foreach (Yii::$app->controller->module->languages as $langTag)
+						{
+							$lang = substr($langTag,0,2);
+							$value = (string)$item[$langTag] ?: '';
+
+							$newValues = new Values();
+							$newValues->key_id = $newKeysID;
+							$newValues->value = $value;
+							$newValues->lang = $lang;
+							$newValues->lang_tag = $langTag;
+							$newValues->save();
+
+							echo $langTag.': '.$value.'<br>';
+						}
+					}
 
 				}
 
 			} else {
 
-				var_dump($item); echo '<br>';
-				echo 'Key not exist!<br>';
+				echo 'Indice '.$index.'<br>';
+				echo 'Key: NULL<br>';
+
+				foreach (Yii::$app->controller->module->languages as $langTag)
+				{
+					$value = isset($item[$langTag]) ? (string)$item[$langTag] : '';
+
+					echo $langTag.': '.$value.'<br>';
+				}
+
+				echo '<br>';
 			}
 
-			echo '<pre>'; var_dump($item); echo '</pre>';
+			echo '#############<br><br>';
 
 			$index++;
-
-			if($index = 2) {
-				exit();
-			}
 		}
 
-		var_dump($csv); exit();
+		exit();
 	}
 }

@@ -19,13 +19,21 @@ namespace cinghie\dictionary\models;
  */
 class KeysQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @return KeysQuery
+	 */
+    public function findByKey($key)
     {
-        return $this->andWhere('[[status]]=1');
-    }*/
+    	$condition = '[[key]]= "'.$key.'"';
+
+        return $this->andWhere($condition)->one();
+    }
 
     /**
      * {@inheritdoc}
+     *
      * @return Keys[]|array
      */
     public function all($db = null)
@@ -35,6 +43,7 @@ class KeysQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
+     *
      * @return Keys|array|null
      */
     public function one($db = null)

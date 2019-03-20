@@ -195,6 +195,8 @@ class KeysController extends Controller
 		$model = new Import();
 		$post  = Yii::$app->request->post();
 
+		Yii::$app->response->format = \yii\web\Response::FORMAT_HTML;
+
 		if($model->load($post))
 		{
 			$keys = UploadedFile::getInstance($model,'importKeys');
