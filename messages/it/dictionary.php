@@ -14,4 +14,8 @@ return [
 	'Create Keys' => 'Crea Parola',
 	'Dictionary' => 'Dizionario',
 	'Update Keys' => 'Modifica Parola',
+	'This key already exist' => 'Questa chiave esiste già',
+	'Key could not be saved!' => 'La chiave non può essere salvata!',
+	'Key has been created!' => 'La chiave è stat correttamente creata!',
+	'Key has been updated!' => 'La chiave è stata aggiornata!'
 ];

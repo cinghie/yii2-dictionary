@@ -45,6 +45,7 @@ class Keys extends \yii\db\ActiveRecord
         return [
             [['key'], 'required'],
             [['key'], 'string', 'max' => 255],
+	        [['key'], 'unique', 'message' => Yii::t('dictionary','This key already exist')],
         ];
     }
 
@@ -106,6 +107,7 @@ class Keys extends \yii\db\ActiveRecord
 
 	/**
 	 * @param string $valueName
+	 * @param string $lang
 	 *
 	 * @return string
 	 */

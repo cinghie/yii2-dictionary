@@ -101,15 +101,17 @@ class KeysController extends Controller
 			    }
 
 			    // Set Success Message
-			    Yii::$app->session->setFlash('success', Yii::t('articles', 'Word has been created!'));
+			    Yii::$app->session->setFlash('success', Yii::t('dictionary', 'Key has been created!'));
 
 		        return $this->redirect(['update', 'id' => $model->id]);
 	        }
 
 		    // Set Error Message
-		    Yii::$app->session->setFlash('error', Yii::t('dictionary', 'Word could not be saved!'));
+		    Yii::$app->session->setFlash('error', Yii::t('dictionary', 'Key could not be saved!'));
 
-		    return $this->render('index');
+		    return $this->render('create', [
+			    'model' => $model,
+		    ]);
 	    }
 
         return $this->render('create', [
@@ -161,7 +163,7 @@ class KeysController extends Controller
 		        }
 
 		        // Set Success Message
-		        Yii::$app->session->setFlash('success', Yii::t('articles', 'Word has been updated!'));
+		        Yii::$app->session->setFlash('success', Yii::t('dictionary', 'Key has been updated!'));
 
 		        return $this->render('update', [
 			        'model' => $model,
@@ -169,9 +171,11 @@ class KeysController extends Controller
 	        }
 
 	        // Set Error Message
-	        Yii::$app->session->setFlash('error', Yii::t('dictionary', 'Word could not be saved!'));
+	        Yii::$app->session->setFlash('error', Yii::t('dictionary', 'Key could not be saved!'));
 
-	        return $this->render('index');
+	        return $this->render('update', [
+		        'model' => $model,
+	        ]);
         }
 
         return $this->render('update', [
