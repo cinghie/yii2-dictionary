@@ -14,6 +14,7 @@ namespace cinghie\dictionary\models;
 
 use Yii;
 use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%dictionary_values}}".
@@ -26,7 +27,7 @@ use yii\db\ActiveQuery;
  *
  * @property Keys $key
  */
-class Values extends \yii\db\ActiveRecord
+class Values extends ActiveRecord
 {
     /**
      * {@inheritdoc}

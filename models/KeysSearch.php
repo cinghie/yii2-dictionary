@@ -2,24 +2,32 @@
 
 namespace cinghie\dictionary\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use cinghie\dictionary\models\Keys;
 
 /**
  * KeysSearch represents the model behind the search form of `cinghie\dictionary\models\Keys`.
  */
 class KeysSearch extends Keys
 {
+	public $langTag;
+	
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
-        return [
-            [['id'], 'integer'],
-            [['key'], 'safe'],
-        ];
+    	$rules = [
+		    [['id'], 'integer'],
+		    [['key'], 'safe'],
+	    ];
+
+	    foreach (Yii::$app->controller->module->languages as $langTag) {
+		    $rules[] = [[$langTag], 'safe'];
+	    }
+
+        return $rules;
     }
 
     /**
@@ -41,20 +49,39 @@ class KeysSearch extends Keys
     public function search($params)
     {
         $query = Keys::find();
+	    $query->joinWith('values');
 
-        // add conditions that should always apply here
+	    $dataProvider = new ActiveDataProvider([
+		    'query' => $query,
+		    'sort' => [
+			    'defaultOrder' => [
+				    'id' => SORT_DESC
+			    ],
+		    ],
+	    ]);
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+	    foreach (Yii::$app->controller->module->languages as $langTag)
+	    {
+		    $dataProvider->sort->attributes['lang_tag'] = [
+			    'asc' => ['lang_tag' => SORT_ASC],
+			    'desc' => ['lang_tag' => SORT_DESC],
+		    ];
+	    }
 
-        $this->load($params);
+	    $this->load($params);
 
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
+	    if (!$this->validate()) {
+		    // uncomment the following line if you do not want to return any records when validation fails
+		    // $query->where('0=1');
+		    return $dataProvider;
+	    }
+
+	    foreach (Yii::$app->controller->module->languages as $langTag)
+	    {
+		    if(isset($this->$langTag) && $this->$langTag !== '') {
+			    $query->andFilterWhere(['{{%dictionary_values}}.lang_tag' => $this->$langTag]);
+		    }
+	    }
 
         // grid filtering conditions
         $query->andFilterWhere([

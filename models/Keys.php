@@ -14,8 +14,11 @@ namespace cinghie\dictionary\models;
 
 use Yii;
 use cinghie\traits\ViewsHelpersTrait;
+use kartik\grid\CheckboxColumn;
 use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "{{%dictionary_keys}}".
@@ -23,9 +26,10 @@ use yii\helpers\Html;
  * @property int $id
  * @property string $key
  *
+ * @property array $gridColumns
  * @property Values[] $dictionaryValues
  */
-class Keys extends \yii\db\ActiveRecord
+class Keys extends ActiveRecord
 {
 	use ViewsHelpersTrait;
 
@@ -63,7 +67,7 @@ class Keys extends \yii\db\ActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getDictionaryValues()
+    public function getValues()
     {
         return $this->hasMany(Values::class, ['key_id' => 'id']);
     }
@@ -118,6 +122,52 @@ class Keys extends \yii\db\ActiveRecord
 	    }
 
 	    return Html::textInput($valueName, $this->getTranslationValue($lang), ['class' => 'form-control']);
+    }
+
+	/**
+	 * @return array
+	 */
+	public function getGridColumns()
+    {
+		$columns = array();
+
+		// Checkbox Column
+		$columns[] = ['class' => CheckboxColumn::class];
+
+	    // Key Column
+		$columns[] = [
+			'attribute' => 'key',
+			'format' => 'html',
+			'hAlign' => 'center',
+			'value' => function ($model) {
+				$url = urldecode(Url::toRoute(['/dictionary/keys/update',
+					'id' => $model->id
+				]));
+				return Html::a($model->key,$url);
+			}
+		];
+
+		// Translation Columns
+		foreach (Yii::$app->controller->module->languages as $langTag) {
+			$columns[] = [
+				'label' => $langTag,
+				'hAlign' => 'center',
+				'value' => function ($model) use ($langTag) {
+					/** @var Keys $model */
+					$lang = substr($langTag,0,2);
+					return $model->getTranslationValue($lang);
+				}
+			];
+		}
+
+		// ID Column
+	    $columns[] = [
+		    'attribute' => 'id',
+		    'width' => '6%',
+		    'hAlign' => 'center',
+	    ];
+
+		return $columns;
     }
 
     /**

@@ -1,9 +1,7 @@
 <?php
 
-use kartik\grid\CheckboxColumn;
 use kartik\grid\GridView;
 use kartik\helpers\Html;
-use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel cinghie\dictionary\models\KeysSearch */
@@ -52,27 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	    'pjaxSettings'=>[
 		    'neverTimeout' => true,
 	    ],
-        'columns' => [
-	        [
-		        'class' => CheckboxColumn::class
-	        ],
-	        [
-		        'attribute' => 'key',
-		        'format' => 'html',
-		        'hAlign' => 'center',
-		        'value' => function ($model) {
-			        $url = urldecode(Url::toRoute(['/dictionary/keys/update',
-				        'id' => $model->id
-			        ]));
-			        return Html::a($model->key,$url);
-		        }
-	        ],
-	        [
-		        'attribute' => 'id',
-		        'width' => '8%',
-		        'hAlign' => 'center',
-	        ]
-        ],
+        'columns' => $searchModel->getGridColumns(),
 	    'responsive' => true,
 	    'responsiveWrap' => true,
 	    'hover' => true,
