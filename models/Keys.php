@@ -73,10 +73,35 @@ class Keys extends \yii\db\ActiveRecord
 	 * @return string
 	 */
 	public function getTranslation($lang)
-    {
-    	$transltion = $this->hasOne(Values::class, ['key_id' => 'id','lang' => $lang])->one() ?: '';
+	{
+		$translation = $this->hasOne(Values::class, ['key_id' => 'id'])->where(['lang' => $lang])->one();
 
-		return $transltion;
+		return $translation;
+	}
+
+	/**
+	 * @param string $field
+	 * @param bool $lang
+	 *
+	 * @return string
+	 */
+	public function getTranslationField($field,$lang)
+	{
+		$translation = $this->getTranslation($lang);
+
+		return $translation[$field];
+	}
+
+	/**
+	 * @param bool $lang
+	 *
+	 * @return string
+	 */
+	public function getTranslationValue($lang)
+    {
+    	$translation = $this->hasOne(Values::class, ['key_id' => 'id'])->select('value')->where(['lang' => $lang])->one();
+
+		return $translation['value'];
     }
 
 	/**
@@ -84,11 +109,13 @@ class Keys extends \yii\db\ActiveRecord
 	 *
 	 * @return string
 	 */
-	public function getTranslationInput($valueName)
+	public function getTranslationInput($valueName,$lang)
     {
     	if($this->isNewRecord) {
     		return Html::textInput($valueName, '', ['class' => 'form-control']);
 	    }
+
+	    return Html::textInput($valueName, $this->getTranslationValue($lang), ['class' => 'form-control']);
     }
 
     /**

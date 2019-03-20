@@ -2,6 +2,7 @@
 
 namespace cinghie\dictionary\controllers;
 
+use cinghie\dictionary\models\Values;
 use Throwable;
 use Yii;
 use cinghie\dictionary\models\Keys;
@@ -83,18 +84,29 @@ class KeysController extends Controller
 
 	    if ($model->load($post))
 	    {
-	    	var_dump($post); exit();
-	    	
 		    if ($model->save())
 		    {
-			    // Set Success Message
-			    Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been created!'));
+		    	foreach (Yii::$app->controller->module->languages as $langTag)
+		    	{
+				    $lang = substr($langTag,0,2);
+				    $valueName = 'value_'.$lang;
+				    $valueTranslation = $post[$valueName];
 
-		        return $this->redirect(['view', 'id' => $model->id]);
+				    $translation = new Values();
+				    $translation->key_id = $model->id;
+				    $translation->value = $valueTranslation;
+				    $translation->lang = $lang;
+				    $translation->lang_tag = $langTag;
+				    $translation->save();
+			    }
+
+			    // Set Success Message
+			    Yii::$app->session->setFlash('success', Yii::t('articles', 'Word has been created!'));
+
+		        return $this->redirect(['update', 'id' => $model->id]);
 	        }
 
 		    // Set Error Message
-		    Yii::$app->session->setFlash('error', Yii::t('dictionary', var_dump($model->errors)));
 		    Yii::$app->session->setFlash('error', Yii::t('dictionary', 'Word could not be saved!'));
 
 		    return $this->render('index');
@@ -121,9 +133,43 @@ class KeysController extends Controller
 
         if ($model->load($post))
         {
-        	if($model->save()) {
-		        return $this->redirect(['view', 'id' => $model->id]);
+        	if($model->save())
+        	{
+		        foreach (Yii::$app->controller->module->languages as $langTag)
+		        {
+			        $lang = substr($langTag,0,2);
+			        $valueName = 'value_'.$lang;
+			        $valueTranslation = $post[$valueName];
+
+			        $translationID = $model->getTranslationField('id',$lang);
+			        $translation = Values::findOne($translationID);
+
+			        if($translation) {
+				        $translation->key_id = $model->id;
+				        $translation->value = $valueTranslation;
+				        $translation->lang = $lang;
+				        $translation->lang_tag = $langTag;
+				        $translation->save();
+			        } else {
+				        $translation = new Values();
+				        $translation->key_id = $model->id;
+				        $translation->value = $valueTranslation;
+				        $translation->lang = $lang;
+				        $translation->lang_tag = $langTag;
+				        $translation->save();
+			        }
+		        }
+
+		        // Set Success Message
+		        Yii::$app->session->setFlash('success', Yii::t('articles', 'Word has been updated!'));
+
+		        return $this->render('update', [
+			        'model' => $model,
+		        ]);
 	        }
+
+	        // Set Error Message
+	        Yii::$app->session->setFlash('error', Yii::t('dictionary', 'Word could not be saved!'));
 
 	        return $this->render('index');
         }

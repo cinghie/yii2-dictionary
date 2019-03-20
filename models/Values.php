@@ -43,8 +43,8 @@ class Values extends \yii\db\ActiveRecord
     {
         return [
             [['key_id'], 'integer'],
-            [['value','lang', 'lang_tag'], 'required'],
-            [['lang'], 'string', 'max' => 3],
+            [['lang', 'lang_tag'], 'required'],
+            [['lang'], 'string', 'max' => 2],
             [['lang_tag'], 'string', 'max' => 5],
             [['value'], 'string', 'max' => 255],
             [['key_id'], 'exist', 'skipOnError' => true, 'targetClass' => Keys::class, 'targetAttribute' => ['key_id' => 'id']],

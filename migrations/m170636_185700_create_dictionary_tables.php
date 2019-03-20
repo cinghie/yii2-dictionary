@@ -27,7 +27,7 @@ class m170636_185700_create_dictionary_tables extends Migration
 		$this->createTable('{{%dictionary_values}}', [
 			'id' => $this->primaryKey(),
 			'key_id' => $this->integer(11),
-			'value' => $this->string(255)->notNull(),
+			'value' => $this->string(255)->defaultValue(''),
 			'lang' => $this->string(3)->notNull(),
 			'lang_tag' => $this->string(5)->notNull(),
 		], $this->tableOptions);
