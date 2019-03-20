@@ -12,7 +12,7 @@ use yii\data\ActiveDataProvider;
 class KeysSearch extends Keys
 {
 	public $langTag;
-	
+
     /**
      * {@inheritdoc}
      */
