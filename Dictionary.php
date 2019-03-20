@@ -27,6 +27,12 @@ class Dictionary extends Module
 
 	// Show Titles in the views
 	public $showTitles = true;
+
+	// Upload Folder Path
+	public $uploadFolderPath = '@webroot/dictionary/csv/';
+
+	// Upload Max File Size = 1024 * 1024 * 5
+	public $uploadMaxFileSize = 5242880;
     
    /**
 	* @inheritdoc
@@ -36,7 +42,8 @@ class Dictionary extends Module
     public function init()
     {
         parent::init();
-		    $this->registerTranslations();
+        $this->registerTranslations();
+        $this->setupUploadDirectory();
     }
     
     /**
@@ -51,4 +58,16 @@ class Dictionary extends Module
 			];
 		}
     }
+
+	/**
+	 * Setup image directory if it's not exist yet
+	 *
+	 * @throws InvalidParamException
+	 */
+	protected function setupUploadDirectory()
+	{
+		if( ! file_exists( Yii::getAlias( $this->uploadFolderPath ) ) && ! mkdir( Yii::getAlias( $this->uploadFolderPath ), 0755, true ) && ! is_dir( Yii::getAlias( $this->uploadFolderPath ) ) ) {
+			throw new \RuntimeException( sprintf( 'Directory "%s" was not created', Yii::getAlias( $this->uploadFolderPath ) ) );
+		}
+	}
 }

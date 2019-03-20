@@ -7,11 +7,13 @@ use Throwable;
 use Yii;
 use cinghie\dictionary\models\Keys;
 use cinghie\dictionary\models\KeysSearch;
+use cinghie\dictionary\models\Import;
 use yii\db\StaleObjectException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * KeysController implements the CRUD actions for Keys model.
@@ -29,7 +31,7 @@ class KeysController extends Controller
 		        'rules' => [
 			        [
 				        'allow' => true,
-				        'actions' => ['index','create','update','view','delete'],
+				        'actions' => ['index','create','update','view','import','delete'],
 				        'roles' => $this->module->dictionaryRoles
 			        ],
 		        ]
@@ -182,6 +184,45 @@ class KeysController extends Controller
             'model' => $model,
         ]);
     }
+
+	/**
+	 * Displays import view
+	 *
+	 * @return mixed
+	 */
+	public function actionImport()
+	{
+		$model = new Import();
+		$post  = Yii::$app->request->post();
+
+		if($model->load($post))
+		{
+			$keys = UploadedFile::getInstance($model,'importKeys');
+
+			if ($keys !== null)
+			{
+				$fileName = 'Keys_'.date('Y_m_d-H_i').'.'.$keys->extension;
+				$filePath = Yii::getAlias(Yii::$app->controller->module->uploadFolderPath).$fileName;
+				$upload   = $keys->saveAs($filePath);
+
+				if($upload)
+				{
+					$model->importKeys($filePath);
+
+					Yii::$app->session->setFlash('success', Yii::t('traits', 'File uploaded!'));
+
+					return $this->render('import', [
+						'model' => $model,
+					]);
+				}
+
+			}
+		}
+
+		return $this->render('import', [
+			'model' => $model,
+		]);
+	}
 
 	/**
 	 * Deletes an existing Keys model.
