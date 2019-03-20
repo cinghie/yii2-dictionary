@@ -1,6 +1,8 @@
 # Yii2 Dictionary
 Yii2 Dictionary to create, manage, and delete Multilanguage Dictionary in a Yii2 site.
 
+You can create a dictionary with key/value: for each key is possible to associate a translation to each language set on config
+
 Installation
 -----------------
 
@@ -26,3 +28,28 @@ Run the following command:
 ```
 $ php yii migrate/up --migrationPath=@vendor/cinghie/yii2-dictionary/migrations
 ```
+
+Configuration
+-----------------
+
+Set on your configuration:
+
+```
+// Yii2 CRM
+'dictionary' => [
+	'class' => 'cinghie\dictionary\Dictionary',
+	'languages' => [
+		"it-IT" => "it-IT",
+		"en-GB" => "en-GB",
+		"es-ES"  => "es-ES",
+		"fr-FR"  => "fr-FR",
+		"de-DE"  => "de-DE",
+		"ch-CN"  => "ch-CN",
+		"pr-Pr"  => "pr-Pr",
+		"ru-Ru"  => "ru-Ru",
+	],
+	'showTitles' => false
+],
+```
+
+Set all language in Tag mode
