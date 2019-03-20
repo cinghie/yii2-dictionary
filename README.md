@@ -48,7 +48,9 @@ Set on your configuration:
 		"pr-PR"  => "pr-PR",
 		"ru-RU"  => "ru-RU",
 	],
-	'showTitles' => false
+	'showTitles' => false,
+	'uploadFolderPath' => '@webroot/dictionary/csv/'
+	'uploadMaxFileSize' => 5242880
 ],
 ```
 
