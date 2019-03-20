@@ -83,9 +83,19 @@ class KeysController extends Controller
 
 	    if ($model->load($post))
 	    {
-		    if ($model->save()) {
+	    	var_dump($post); exit();
+	    	
+		    if ($model->save())
+		    {
+			    // Set Success Message
+			    Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been created!'));
+
 		        return $this->redirect(['view', 'id' => $model->id]);
 	        }
+
+		    // Set Error Message
+		    Yii::$app->session->setFlash('error', Yii::t('dictionary', var_dump($model->errors)));
+		    Yii::$app->session->setFlash('error', Yii::t('dictionary', 'Word could not be saved!'));
 
 		    return $this->render('index');
 	    }

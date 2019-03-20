@@ -15,6 +15,7 @@ namespace cinghie\dictionary\models;
 use Yii;
 use cinghie\traits\ViewsHelpersTrait;
 use yii\db\ActiveQuery;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "{{%dictionary_keys}}".
@@ -43,7 +44,6 @@ class Keys extends \yii\db\ActiveRecord
     {
         return [
             [['key'], 'required'],
-            [['key'], 'unique'],
             [['key'], 'string', 'max' => 255],
         ];
     }
@@ -65,6 +65,30 @@ class Keys extends \yii\db\ActiveRecord
     public function getDictionaryValues()
     {
         return $this->hasMany(Values::class, ['key_id' => 'id']);
+    }
+
+	/**
+	 * @param bool $lang
+	 *
+	 * @return string
+	 */
+	public function getTranslation($lang)
+    {
+    	$transltion = $this->hasOne(Values::class, ['key_id' => 'id','lang' => $lang])->one() ?: '';
+
+		return $transltion;
+    }
+
+	/**
+	 * @param string $valueName
+	 *
+	 * @return string
+	 */
+	public function getTranslationInput($valueName)
+    {
+    	if($this->isNewRecord) {
+    		return Html::textInput($valueName, '', ['class' => 'form-control']);
+	    }
     }
 
     /**

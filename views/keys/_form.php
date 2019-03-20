@@ -1,6 +1,5 @@
 <?php
 
-use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -45,18 +44,15 @@ use yii\widgets\ActiveForm;
             <div class="col-md-4">
 
                 <?php
-
                     $lang = substr($langTag,0,2);
-
                     $valueName = 'value_'.$lang;
-
                 ?>
 
                 <div class="form-group field-keys-key">
                     <label class="control-label" for="keys-key">
                         <?= Yii::t('traits','Translation') ?> <?= $langTag ?>
                     </label>
-	                <?= Html::textInput($valueName, $model->getFieldTranslation($lang,'title'), ['class' => 'form-control']) ?>
+	                <?= $model->getTranslationInput($valueName) ?>
                 </div>
 
             </div>
