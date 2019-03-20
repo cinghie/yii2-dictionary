@@ -35,7 +35,7 @@ Configuration
 Set on your configuration:
 
 ```
-// Yii2 CRM
+// Yii2 Dictionary
 'dictionary' => [
 	'class' => 'cinghie\dictionary\Dictionary',
 	'languages' => [
