@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <!-- action menu -->
     <div class="col-md-6">
 
-
+	    <?= Yii::$app->view->renderFile('@vendor/cinghie/yii2-dictionary/views/default/_menu.php') ?>
 
     </div>
 
