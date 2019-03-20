@@ -45,8 +45,8 @@ Set on your configuration:
 		"fr-FR"  => "fr-FR",
 		"de-DE"  => "de-DE",
 		"ch-CN"  => "ch-CN",
-		"pr-Pr"  => "pr-Pr",
-		"ru-Ru"  => "ru-Ru",
+		"pr-PR"  => "pr-PR",
+		"ru-RU"  => "ru-RU",
 	],
 	'showTitles' => false
 ],
