@@ -7,7 +7,7 @@
  * @github https://github.com/cinghie/yii2-dictionary
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-dictionary
- * @version 0.1.0
+ * @version 0.3.0
  */
 
 namespace cinghie\dictionary\models;

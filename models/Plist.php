@@ -7,7 +7,7 @@
  * @github https://github.com/cinghie/yii2-dictionary
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-dictionary
- * @version 0.1.0
+ * @version 0.3.0
  */
 
 namespace cinghie\dictionary\models;
@@ -29,10 +29,6 @@ class Plist
 	 */
 	public static function createPlistFile($array,$lang,$plist_path)
 	{
-		if (!file_exists($plist_path) && !mkdir($plist_path, 0777, true) && !is_dir($plist_path)) {
-			throw new \RuntimeException(sprintf('Directory "%s" was not created', $plist_path));
-		}
-
 		/**
 		 * create a new CFPropertyList instance without loading any content
 		 */

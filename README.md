@@ -11,13 +11,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-$ php composer.phar require cinghie/yii2-dictionary "*"
+$ php composer.phar require cinghie/yii2-dictionary '*'
 ```
 
 or add
 
 ```
-"cinghie/yii2-dictionary": "*"
+'cinghie/yii2-dictionary': '*'
 ```
 
 Create database schema
@@ -38,17 +38,19 @@ Set on your configuration:
 // Yii2 Dictionary
 'dictionary' => [
 	'class' => 'cinghie\dictionary\Dictionary',
+	'dictionaryRoles' => ['admin'];
 	'languages' => [
-		"it-IT" => "it-IT",
-		"en-GB" => "en-GB",
-		"es-ES"  => "es-ES",
-		"fr-FR"  => "fr-FR",
-		"de-DE"  => "de-DE",
-		"ch-CN"  => "ch-CN",
-		"pr-PR"  => "pr-PR",
-		"ru-RU"  => "ru-RU",
+		'it-IT' => 'it-IT',
+		'en-GB' => 'en-GB',
+		'es-ES' => 'es-ES',
+		'fr-FR' => 'fr-FR',
+		'de-DE' => 'de-DE',
+		'ch-CN' => 'ch-CN',
+		'pr-PR' => 'pr-PR',
+		'ru-RU' => 'ru-RU',
 	],
 	'showTitles' => false,
+	'plistFolderPath' => '@webroot/dictionary/plist/';
 	'uploadFolderPath' => '@webroot/dictionary/csv/'
 	'uploadMaxFileSize' => 5242880
 ],

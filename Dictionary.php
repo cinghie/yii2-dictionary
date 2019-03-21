@@ -7,7 +7,7 @@
  * @github https://github.com/cinghie/yii2-dictionary
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-dictionary
- * @version 0.1.0
+ * @version 0.3.0
  */
 
 namespace cinghie\dictionary;
@@ -20,13 +20,10 @@ use yii\i18n\PhpMessageSource;
 class Dictionary extends Module
 {
     // Select Article Languages
-	public $languages = [ 'en-GB' => 'en-GB' ];
+	public $languages = ['en-GB' => 'en-GB'];
 
 	// Admin Rules
 	public $dictionaryRoles = ['admin'];
-
-	// Show Titles in the views
-	public $showTitles = true;
 
 	// Plist Folder Path
 	public $plistFolderPath = '@webroot/dictionary/plist/';
@@ -36,6 +33,9 @@ class Dictionary extends Module
 
 	// Upload Max File Size = 1024 * 1024 * 5
 	public $uploadMaxFileSize = 5242880;
+
+	// Show Titles in the views
+	public $showTitles = true;
     
    /**
 	* @inheritdoc
@@ -46,6 +46,7 @@ class Dictionary extends Module
     {
         parent::init();
         $this->registerTranslations();
+        $this->setupPlistDirectory();
         $this->setupUploadDirectory();
     }
     
@@ -61,6 +62,18 @@ class Dictionary extends Module
 			];
 		}
     }
+
+	/**
+	 * Setup image directory if it's not exist yet
+	 *
+	 * @throws InvalidParamException
+	 */
+	protected function setupPlistDirectory()
+	{
+		if( ! file_exists( Yii::getAlias( $this->plistFolderPath ) ) && ! mkdir( Yii::getAlias( $this->plistFolderPath ), 0755, true ) && ! is_dir( Yii::getAlias( $this->plistFolderPath ) ) ) {
+			throw new \RuntimeException( sprintf( 'Directory "%s" was not created', Yii::getAlias( $this->plistFolderPath ) ) );
+		}
+	}
 
 	/**
 	 * Setup image directory if it's not exist yet

@@ -7,7 +7,7 @@
  * @github https://github.com/cinghie/yii2-dictionary
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-dictionary
- * @version 0.1.0
+ * @version 0.3.0
  */
 
 namespace cinghie\dictionary\controllers;
@@ -58,7 +58,8 @@ class KeysController extends Controller
     }
 
     /**
-     * Lists all Keys models.
+     * Lists all Keys models
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -73,8 +74,10 @@ class KeysController extends Controller
     }
 
     /**
-     * Displays a single Keys model.
+     * Displays a single Keys model
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -86,8 +89,7 @@ class KeysController extends Controller
     }
 
     /**
-     * Creates a new Keys model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * Creates a new Keys model
      *
      * @return mixed
      */
@@ -134,8 +136,7 @@ class KeysController extends Controller
     }
 
     /**
-     * Updates an existing Keys model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     * Updates an existing Keys model
      *
      * @param integer $id
      *
@@ -246,10 +247,9 @@ class KeysController extends Controller
 	 */
 	public function actionDownload()
 	{
+		$keys  = new Keys();
 		$plist = new Plist();
 		$plist_path = Yii::getAlias(Yii::$app->controller->module->plistFolderPath);
-
-		$keys = new Keys();
 
 		foreach (Yii::$app->controller->module->languages as $langTag)
 		{
@@ -269,8 +269,7 @@ class KeysController extends Controller
 	}
 
 	/**
-	 * Deletes an existing Keys model.
-	 * If deletion is successful, the browser will be redirected to the 'index' page.
+	 * Deletes an existing Keys model
 	 *
 	 * @param integer $id
 	 *
@@ -287,8 +286,8 @@ class KeysController extends Controller
     }
 
     /**
-     * Finds the Keys model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
+     * Finds the Keys model based on its primary key value
+     * If the model is not found, a 404 HTTP exception will be thrown
      *
      * @param integer $id
      *

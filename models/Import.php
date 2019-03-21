@@ -7,7 +7,7 @@
  * @github https://github.com/cinghie/yii2-dictionary
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-dictionary
- * @version 0.1.0
+ * @version 0.3.0
  */
 
 namespace cinghie\dictionary\models;
@@ -42,7 +42,7 @@ class Import extends ActiveRecord
 	/**
 	 * Import Keys form CSV
 	 *
-	 * @param $filePath
+	 * @param string $filePath
 	 */
 	public function importKeys($filePath)
 	{
@@ -70,8 +70,8 @@ class Import extends ActiveRecord
 
 			echo 'Indice '.$index.'<br>';
 
-			if($key) {
-
+			if($key)
+			{
 				$newKeys  = new Keys();
 				$keyExist = $newKeys::find()->findByKey($key);
 

@@ -7,7 +7,7 @@
  * @github https://github.com/cinghie/yii2-dictionary
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-dictionary
- * @version 0.1.0
+ * @version 0.3.0
  */
 
 namespace cinghie\dictionary\models;
@@ -23,8 +23,10 @@ use yii\helpers\Url;
 /**
  * This is the model class for table "{{%dictionary_keys}}".
  *
- * @property int $id
+ * @property integer $id
  * @property string $key
+ *
+ * @property ActiveQuery $values
  *
  * @property array $gridColumns
  * @property Values[] $dictionaryValues
@@ -169,6 +171,18 @@ class Keys extends ActiveRecord
 
 		return $columns;
     }
+
+	/**
+	 * Return action send button
+	 *
+	 * @param array $url
+	 *
+	 * @return string
+	 */
+	public function getDownloadButton(array $url = ['download'])
+	{
+		return $this->getStandardButton('fa fa-download text-blue', Yii::t('dictionary','Download as Plist'), $url, ['class' => 'btn btn-mini btn-send']);
+	}
 
     /**
      * {@inheritdoc}

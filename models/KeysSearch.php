@@ -1,8 +1,17 @@
 <?php
 
+/**
+ * @copyright Copyright &copy; Gogodigital Srls
+ * @company Gogodigital Srls - Wide ICT Solutions
+ * @website http://www.gogodigital.it
+ * @github https://github.com/cinghie/yii2-dictionary
+ * @license GNU GENERAL PUBLIC LICENSE VERSION 3
+ * @package yii2-dictionary
+ * @version 0.3.0
+ */
+
 namespace cinghie\dictionary\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
