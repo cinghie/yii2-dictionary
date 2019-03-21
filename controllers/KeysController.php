@@ -1,13 +1,25 @@
 <?php
 
+/**
+ * @copyright Copyright &copy; Gogodigital Srls
+ * @company Gogodigital Srls - Wide ICT Solutions
+ * @website http://www.gogodigital.it
+ * @github https://github.com/cinghie/yii2-dictionary
+ * @license GNU GENERAL PUBLIC LICENSE VERSION 3
+ * @package yii2-dictionary
+ * @version 0.1.0
+ */
+
 namespace cinghie\dictionary\controllers;
 
-use cinghie\dictionary\models\Values;
+use CFPropertyList\IOException;
 use Throwable;
 use Yii;
 use cinghie\dictionary\models\Keys;
 use cinghie\dictionary\models\KeysSearch;
 use cinghie\dictionary\models\Import;
+use cinghie\dictionary\models\Plist;
+use cinghie\dictionary\models\Values;
 use yii\db\StaleObjectException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -31,7 +43,7 @@ class KeysController extends Controller
 		        'rules' => [
 			        [
 				        'allow' => true,
-				        'actions' => ['index','create','update','view','import','delete'],
+				        'actions' => ['index','create','update','view','import','download','delete'],
 				        'roles' => $this->module->dictionaryRoles
 			        ],
 		        ]
@@ -224,6 +236,36 @@ class KeysController extends Controller
 		return $this->render('import', [
 			'model' => $model,
 		]);
+	}
+
+	/**
+	 * Displays import view
+	 *
+	 * @return mixed
+	 * @throws IOException
+	 */
+	public function actionDownload()
+	{
+		$plist = new Plist();
+		$plist_path = Yii::getAlias(Yii::$app->controller->module->plistFolderPath);
+
+		$keys = new Keys();
+
+		foreach (Yii::$app->controller->module->languages as $langTag)
+		{
+			$lang  = substr($langTag,0,2);
+			$array = $keys::find()
+			    ->select('key, value as translation')
+			    ->from('{{%dictionary_keys}}')
+			    ->leftJoin('{{%dictionary_values}}','{{%dictionary_keys}}.id = {{%dictionary_values}}.key_id')
+				->where('lang = "'.$lang.'"')
+				->orderBy('key ASC')
+				->asArray()
+				->all();
+			$plist::createPlistFile($array,$lang,$plist_path);
+		}
+
+		return $this->redirect(['index']);
 	}
 
 	/**

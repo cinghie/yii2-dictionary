@@ -24,6 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <!-- action buttons -->
     <div class="col-md-6">
 
+	    <?= $searchModel->getDownloadButton() ?>
+
 		<?= $searchModel->getCreateButton() ?>
 
     </div>

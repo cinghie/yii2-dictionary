@@ -28,6 +28,9 @@ class Dictionary extends Module
 	// Show Titles in the views
 	public $showTitles = true;
 
+	// Plist Folder Path
+	public $plistFolderPath = '@webroot/dictionary/plist/';
+
 	// Upload Folder Path
 	public $uploadFolderPath = '@webroot/dictionary/csv/';
 
