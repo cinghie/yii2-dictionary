@@ -11,13 +11,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-$ php composer.phar require cinghie/yii2-dictionary '*'
+$ php composer.phar require cinghie/yii2-dictionary "*"
 ```
 
 or add
 
 ```
-'cinghie/yii2-dictionary': '*'
+"cinghie/yii2-dictionary": "*"
 ```
 
 Create database schema
