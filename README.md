@@ -1,7 +1,12 @@
 # Yii2 Dictionary
 Yii2 Dictionary to create, manage, and delete Multilanguage Dictionary in a Yii2 site.
 
-You can create a dictionary with key/value: for each key is possible to associate a translation to each language set on config
+Features
+-----------------
+
+ - Create a dictionary with key/value: for each key is possible to associate a translation to each language set on config
+ - Import from CSV
+ - Download as Plist
 
 Installation
 -----------------
