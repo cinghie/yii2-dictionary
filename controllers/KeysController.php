@@ -21,10 +21,10 @@ use cinghie\dictionary\models\Import;
 use cinghie\dictionary\models\Plist;
 use cinghie\dictionary\models\Values;
 use yii\db\StaleObjectException;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 
 /**
@@ -244,6 +244,7 @@ class KeysController extends Controller
 	 *
 	 * @return mixed
 	 * @throws IOException
+	 * @throws NotFoundHttpException
 	 */
 	public function actionDownload()
 	{
@@ -262,8 +263,11 @@ class KeysController extends Controller
 				->orderBy('key ASC')
 				->asArray()
 				->all();
-			$plist::createPlistFile($array,$lang,$plist_path);
+			$filePath = $plist::createPlistFile($array,$lang,$plist_path);
+			$this->downloadFile($filePath);
 		}
+
+		Yii::$app->session->setFlash('success', Yii::t('dictionary', 'Plists file dowloaded!'));
 
 		return $this->redirect(['index']);
 	}
@@ -284,6 +288,23 @@ class KeysController extends Controller
 
         return $this->redirect(['index']);
     }
+
+	/**
+	 * Download File
+	 *
+	 * @param string $filePath
+	 *
+	 * @return \yii\console\Response|\yii\web\Response
+	 * @throws NotFoundHttpException
+	 */
+	protected function downloadFile($filePath)
+	{
+		if (file_exists($filePath)) {
+			return Yii::$app->response->sendFile($filePath);
+		}
+
+		throw new NotFoundHttpException("{$filePath} is not found!");
+	}
 
     /**
      * Finds the Keys model based on its primary key value

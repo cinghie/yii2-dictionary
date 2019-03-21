@@ -24,7 +24,7 @@ class Plist
 	 * @param string $lang
 	 * @param string $plist_path
 	 *
-	 * @return void
+	 * @return string
 	 * @throws IOException
 	 */
 	public static function createPlistFile($array,$lang,$plist_path)
@@ -51,5 +51,24 @@ class Plist
 		}
 
 		$plist->saveXML($plist_file);
+
+		return $plist_file;
+	}
+
+	/**
+	 * Download File
+	 *
+	 * @param string $filePath
+	 *
+	 * @return \yii\console\Response|\yii\web\Response
+	 * @throws NotFoundHttpException
+	 */
+	public function downloadFile($filePath)
+	{
+		if (file_exists($filePath)) {
+			return Yii::$app->response->sendFile($filePath);
+		}
+
+		throw new NotFoundHttpException("{$filePath} is not found!");
 	}
 }
