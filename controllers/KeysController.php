@@ -298,7 +298,7 @@ class KeysController extends Controller
 	 *
 	 * @param string $filePath
 	 *
-	 * @return \yii\console\Response|\yii\web\Response
+	 * @return void
 	 * @throws NotFoundHttpException
 	 */
 	protected function downloadFile($filePath)
