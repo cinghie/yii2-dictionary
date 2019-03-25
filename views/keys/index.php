@@ -24,7 +24,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <!-- action buttons -->
     <div class="col-md-6">
 
-	    <?= $searchModel->getDownloadButton() ?>
+        <?php if(Yii::$app->controller->module->showPlistDownload) {
+            echo $searchModel->getDownloadButton();
+        } ?>
 
 		<?= $searchModel->getCreateButton() ?>
 

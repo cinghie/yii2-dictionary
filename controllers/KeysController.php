@@ -43,7 +43,15 @@ class KeysController extends Controller
 		        'rules' => [
 			        [
 				        'allow' => true,
-				        'actions' => ['index','create','update','view','import','download','delete'],
+				        'actions' => ['index','create','update','view','import','delete'],
+				        'roles' => $this->module->dictionaryRoles
+			        ],
+			        [
+				        'allow' => true,
+				        'actions' => ['downloadplist'],
+				        'matchCallback' => function () {
+							return $this->module->showPlistDownload;
+				        },
 				        'roles' => $this->module->dictionaryRoles
 			        ],
 		        ]
@@ -246,7 +254,7 @@ class KeysController extends Controller
 	 * @throws IOException
 	 * @throws NotFoundHttpException
 	 */
-	public function actionDownload()
+	public function actionDownloadplist()
 	{
 		$keys    = new Keys();
 		$plist   = new Plist();

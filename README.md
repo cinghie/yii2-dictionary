@@ -54,6 +54,7 @@ Set on your configuration:
 		'pr-PR' => 'pr-PR',
 		'ru-RU' => 'ru-RU',
 	],
+	'showPlistDownload' => true,
 	'showTitles' => false,
 	'plistFolderPath' => '@webroot/dictionary/plist/';
 	'uploadFolderPath' => '@webroot/dictionary/csv/'

@@ -179,7 +179,7 @@ class Keys extends ActiveRecord
 	 *
 	 * @return string
 	 */
-	public function getDownloadButton(array $url = ['download'])
+	public function getDownloadButton(array $url = ['downloadplist'])
 	{
 		return $this->getStandardButton('fa fa-download text-blue', Yii::t('dictionary','Download as Plist'), $url, ['class' => 'btn btn-mini btn-send']);
 	}

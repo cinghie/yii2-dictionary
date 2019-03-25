@@ -34,6 +34,9 @@ class Dictionary extends Module
 	// Upload Max File Size = 1024 * 1024 * 5
 	public $uploadMaxFileSize = 5242880;
 
+	// Show Plist Download
+	public $showPlistDownload = false;
+
 	// Show Titles in the views
 	public $showTitles = true;
     
