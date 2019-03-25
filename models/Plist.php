@@ -16,6 +16,7 @@ use CFPropertyList\CFDictionary;
 use CFPropertyList\CFPropertyList;
 use CFPropertyList\CFString;
 use CFPropertyList\IOException;
+use Exception;
 
 class Plist
 {
@@ -56,19 +57,28 @@ class Plist
 	}
 
 	/**
-	 * Download File
+	 * Generate zip file for upload
 	 *
-	 * @param string $filePath
-	 *
-	 * @return \yii\console\Response|\yii\web\Response
-	 * @throws NotFoundHttpException
+	 * @param string $plist_path
 	 */
-	public function downloadFile($filePath)
+	public static function createPlistZip($plist_path)
 	{
-		if (file_exists($filePath)) {
-			return Yii::$app->response->sendFile($filePath);
+		$files   = $plist_path.'Localizable_*.plist';
+		$zipFile = new \ZipArchive();
+		$zipName = $plist_path.'Plist.zip';
+		$filesPlists = array();
+
+		if ($zipFile->open($zipName, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) !== TRUE) {
+			die ( 'An error occurred creating your ZIP file.' );
 		}
 
-		throw new NotFoundHttpException("{$filePath} is not found!");
+		foreach (glob($files) as $file) {
+			$zipFile->addFile($file, $zipName);
+		}
+
+		$zipFile->close();
+
+		var_dump($filesPlists);
+		exit();
 	}
 }

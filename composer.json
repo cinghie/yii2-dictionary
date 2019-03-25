@@ -17,6 +17,7 @@
         }
     ],
     "require": {
+        "ext-zip": "*",
         "yiisoft/yii2": "~2.0.14",
         "cinghie/yii2-traits": "@dev",
         "rodneyrehm/plist": "@dev"

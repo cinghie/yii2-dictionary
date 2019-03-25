@@ -248,9 +248,18 @@ class KeysController extends Controller
 	 */
 	public function actionDownload()
 	{
-		$keys  = new Keys();
-		$plist = new Plist();
+		$keys    = new Keys();
+		$plist   = new Plist();
+		$zipFile = new \ZipArchive;
+
 		$plist_path = Yii::getAlias(Yii::$app->controller->module->plistFolderPath);
+		$zipName = $plist_path.'Plist.zip';
+
+		if(file_exists($zipName)) {
+			$zipFile->open($zipName, \ZipArchive::OVERWRITE);
+		} else {
+			$zipFile->open($zipName, \ZipArchive::CREATE);
+		}
 
 		foreach (Yii::$app->controller->module->languages as $langTag)
 		{
@@ -264,12 +273,35 @@ class KeysController extends Controller
 				->asArray()
 				->all();
 			$filePath = $plist::createPlistFile($array,$lang,$plist_path);
-			$this->downloadFile($filePath);
+			$newFileName = substr($filePath,strrpos($filePath,'/') + 1);
+			$zipFile->addFile($filePath,$newFileName);
 		}
+
+		$zipFile->close();
+		$this->downloadFile($zipName);
 
 		Yii::$app->session->setFlash('success', Yii::t('dictionary', 'Plists file dowloaded!'));
 
 		return $this->redirect(['index']);
+	}
+
+	/**
+	 * Download File
+	 *
+	 * @param string $filePath
+	 *
+	 * @return \yii\console\Response|\yii\web\Response
+	 * @throws NotFoundHttpException
+	 */
+	protected function downloadFile($filePath)
+	{
+		if (file_exists($filePath))
+		{
+			Yii::$app->response->sendFile($filePath)->send();
+			//unlink($filePath);
+		}
+
+		throw new NotFoundHttpException("{$filePath} is not found!");
 	}
 
 	/**
@@ -282,28 +314,11 @@ class KeysController extends Controller
 	 * @throws StaleObjectException
 	 * @throws Throwable
 	 */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
-	/**
-	 * Download File
-	 *
-	 * @param string $filePath
-	 *
-	 * @return \yii\console\Response|\yii\web\Response
-	 * @throws NotFoundHttpException
-	 */
-	protected function downloadFile($filePath)
+	public function actionDelete($id)
 	{
-		if (file_exists($filePath)) {
-			return Yii::$app->response->sendFile($filePath);
-		}
+		$this->findModel($id)->delete();
 
-		throw new NotFoundHttpException("{$filePath} is not found!");
+		return $this->redirect(['index']);
 	}
 
     /**
