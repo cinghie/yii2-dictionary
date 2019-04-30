@@ -3,11 +3,11 @@
 use kartik\widgets\ActiveForm;
 use kartik\widgets\FileInput;
 
-$this->title = Yii::t('onyourown','Import');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('onyourown', 'POI'), 'url' => ['/onyourown/items/index']];
+$this->title = Yii::t('dictionary','Import');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('dictionary', 'POI'), 'url' => ['/dictionary/items/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-// Render Yii2-onyourown Menu
+// Render Yii2-dictionary Menu
 echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-dictionary/views/default/_menu.php');
 
 ?>
