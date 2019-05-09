@@ -12,6 +12,7 @@
 
 namespace cinghie\dictionary;
 
+use RuntimeException;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\base\Module;
@@ -78,7 +79,7 @@ class Dictionary extends Module
 	protected function setupPlistDirectory()
 	{
 		if( ! file_exists( Yii::getAlias( $this->plistFolderPath ) ) && ! mkdir( Yii::getAlias( $this->plistFolderPath ), 0755, true ) && ! is_dir( Yii::getAlias( $this->plistFolderPath ) ) ) {
-			throw new \RuntimeException( sprintf( 'Directory "%s" was not created', Yii::getAlias( $this->plistFolderPath ) ) );
+			throw new RuntimeException( sprintf( 'Directory "%s" was not created', Yii::getAlias( $this->plistFolderPath ) ) );
 		}
 	}
 
@@ -90,7 +91,7 @@ class Dictionary extends Module
 	protected function setupUploadDirectory()
 	{
 		if( ! file_exists( Yii::getAlias( $this->uploadFolderPath ) ) && ! mkdir( Yii::getAlias( $this->uploadFolderPath ), 0755, true ) && ! is_dir( Yii::getAlias( $this->uploadFolderPath ) ) ) {
-			throw new \RuntimeException( sprintf( 'Directory "%s" was not created', Yii::getAlias( $this->uploadFolderPath ) ) );
+			throw new RuntimeException( sprintf( 'Directory "%s" was not created', Yii::getAlias( $this->uploadFolderPath ) ) );
 		}
 	}
 }
