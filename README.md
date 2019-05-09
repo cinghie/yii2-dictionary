@@ -71,6 +71,21 @@ Set on your configuration:
 
 Set all language in Tag mode
 
+## Filters
+
+If you have a Yii2 App Advanced (frontend/backend) you can exclude frontend actions 
+
+```
+'modules' => [ 
+	
+	'dictionary' => [ 
+		'class' => 'cinghie\dictionary\Dictionary',
+		'as frontend' => 'cinghie\dictionary\filters\FrontendFilter',
+	]
+	
+],
+```
+
 ## Overrides
 
 Override controller example, on modules config
