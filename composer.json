@@ -28,6 +28,6 @@
         }
     },
     "extra": {
-        "bootstrap": "cinghie\\dictionary\\Bootstrap",
+        "bootstrap": "cinghie\\dictionary\\Bootstrap"
     }
 }
