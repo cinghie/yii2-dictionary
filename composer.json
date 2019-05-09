@@ -26,5 +26,8 @@
         "psr-4": {
             "cinghie\\dictionary\\": ""
         }
+    },
+    "extra": {
+        "bootstrap": "cinghie\\dictionary\\Bootstrap",
     }
 }

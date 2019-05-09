@@ -70,3 +70,51 @@ Set on your configuration:
 ```
 
 Set all language in Tag mode
+
+## Overrides
+
+Override controller example, on modules config
+
+```
+'modules' => [ 
+	
+	'dictionary' => [ 
+		'class' => 'cinghie\dictionary\Dictionary',
+		'controllerMap' => [
+			'keys' => 'app\controllers\KeysController',
+		]
+	]
+	
+],
+```
+
+Override models example, on modules config
+
+```
+'modules' => [ 
+	
+	'dictionary' => [ 
+		'class' => 'cinghie\dictionary\Dictionary',
+		'modelMap' => [
+			'Keys' => 'app\models\Keys'
+		]
+	]
+	
+],
+```
+
+Override view example, on components config
+
+```
+'components' => [ 
+
+	'view' => [
+		'theme' => [
+			'pathMap' => [
+				'@cinghie/dictionary/views/keys' => '@app/views/dictionary/keys',
+			],
+		],
+	],
+	
+],
+```

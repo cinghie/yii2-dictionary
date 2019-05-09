@@ -25,6 +25,9 @@ class Dictionary extends Module
 	// Admin Rules
 	public $dictionaryRoles = ['admin'];
 
+	// Model map
+	public $modelMap = [];
+
 	// Plist Folder Path
 	public $plistFolderPath = '@webroot/dictionary/plist/';
 
@@ -47,10 +50,11 @@ class Dictionary extends Module
     */
     public function init()
     {
-        parent::init();
         $this->registerTranslations();
         $this->setupPlistDirectory();
         $this->setupUploadDirectory();
+
+	    parent::init();
     }
     
     /**
