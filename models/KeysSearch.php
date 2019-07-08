@@ -12,6 +12,7 @@
 
 namespace cinghie\dictionary\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -58,6 +59,9 @@ class KeysSearch extends Keys
 				    'id' => SORT_DESC
 			    ],
 		    ],
+		    'pagination' => [
+			    'pageSize' => Yii::$app->controller->module->pageSize,
+		    ],
 	    ]);
 
 	    $this->load($params);
@@ -74,6 +78,9 @@ class KeysSearch extends Keys
         ]);
 
         $query->andFilterWhere(['like', 'key', $this->key]);
+
+	    // Print SQL query
+	    //var_dump($query->prepare(Yii::$app->db->queryBuilder)->createCommand()->rawSql); exit();
 
         return $dataProvider;
     }

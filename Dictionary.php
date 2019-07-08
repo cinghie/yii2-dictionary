@@ -29,6 +29,9 @@ class Dictionary extends Module
 	// Model map
 	public $modelMap = [];
 
+	// Page Size DataProvider
+	public $pageSize = 50;
+
 	// Plist Folder Path
 	public $plistFolderPath = '@webroot/dictionary/plist/';
 
