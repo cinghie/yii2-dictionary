@@ -133,3 +133,13 @@ Override view example, on components config
 	
 ],
 ```
+## Get Translation Value
+
+```
+use cinghie\dictionary\models\Keys;
+
+$dictionary = new Keys();
+
+$key   = $dictionary::findOne(KeyID);
+$value = $key->getTranslation(LangTag)->attributes['value'] ?: ''
+```
