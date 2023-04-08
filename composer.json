@@ -22,6 +22,9 @@
         "cinghie/yii2-traits": "@dev",
         "rodneyrehm/plist": "@dev"
     },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
+    },
     "autoload": {
         "psr-4": {
             "cinghie\\dictionary\\": ""
